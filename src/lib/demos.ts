@@ -4,4 +4,9 @@ export const demos = [
     title: "Basic Scene",
     description: "Create the first Three.js scene",
   },
+  {
+    slug: "demo02-orbit-controls",
+    title: "Orbit Controls",
+    description: "Control camera with mouse",
+  }
 ];

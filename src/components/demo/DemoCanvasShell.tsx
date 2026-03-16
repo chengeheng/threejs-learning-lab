@@ -6,7 +6,11 @@ import type { ComponentType } from "react";
 const demoMap: Record<string, ComponentType<any>> = {
   "demo01-basic-scene": dynamic(
     () => import("@/demos/demo01-basic-scene/component"),
-    { ssr: false },
+    { ssr: false }
+  ),
+  "demo02-orbit-controls": dynamic(
+    () => import("@/demos/demo02-orbit-controls/component"),
+    { ssr: false }
   ),
 };
 
