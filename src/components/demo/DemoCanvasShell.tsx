@@ -22,7 +22,7 @@ export default function DemoCanvasShell({ slug }: { slug: string }) {
   }
 
   return (
-    <div style={{ marginTop: 24 }}>
+    <div className="demo-canvas-shell">
       <DemoComponent />
     </div>
   );

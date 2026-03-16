@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
-import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
+import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 
 export default function Demo02OrbitControls() {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -38,7 +38,13 @@ export default function Demo02OrbitControls() {
     // controls
     const controls = new OrbitControls(camera, renderer.domElement);
 
+    // enable damping
     controls.enableDamping = true;
+    controls.dampingFactor = 0.5;
+
+    controls.enableZoom = false;
+
+    controls.maxPolarAngle = Math.PI / 2;
 
     // animation
     let animationId: number;

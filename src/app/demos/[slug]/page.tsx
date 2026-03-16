@@ -1,25 +1,43 @@
-import { notFound } from "next/navigation"
-import { demos } from "@/lib/demos"
-import DemoCanvasShell from "@/components/demo/DemoCanvasShell"
+import { notFound } from "next/navigation";
+import DemoCanvasShell from "@/components/demo/DemoCanvasShell";
+import DemoSidebar from "@/components/demo/DemoSidebar";
+import DemoMarkdown from "@/components/notes/DemoMarkdown";
+import { getDemoNotes } from "@/lib/demo-content";
+import { getDemoBySlug } from "@/lib/demos";
 
 export default async function DemoPage({
   params,
 }: {
-  params: Promise<{ slug: string }>
+  params: Promise<{ slug: string }>;
 }) {
-  const { slug } = await params
+  const { slug } = await params;
 
-  const demo = demos.find((d) => d.slug === slug)
+  const demo = getDemoBySlug(slug);
 
   if (!demo) {
-    notFound()
+    notFound();
   }
 
+  const notes = await getDemoNotes(slug);
+
   return (
-    <div style={{ padding: 40 }}>
-      <h1>{demo.title}</h1>
-      <p>{demo.description}</p>
-      <DemoCanvasShell slug={demo.slug} />
+    <div className="demo-page">
+      <DemoSidebar currentSlug={slug} />
+
+      <main className="demo-main">
+        <header className="demo-header">
+          <h1>{demo.title}</h1>
+          <p>{demo.description}</p>
+        </header>
+
+        <section className="demo-canvas-section">
+          <DemoCanvasShell slug={demo.slug} />
+        </section>
+
+        <section className="demo-notes-section">
+          <DemoMarkdown content={notes} />
+        </section>
+      </main>
     </div>
-  )
+  );
 }
