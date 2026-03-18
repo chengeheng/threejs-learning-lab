@@ -3,7 +3,7 @@
 import dynamic from "next/dynamic";
 import type { ComponentType } from "react";
 
-const demoMap: Record<string, ComponentType<any>> = {
+const demoMap: Record<string, ComponentType> = {
   "demo01-basic-scene": dynamic(
     () => import("@/demos/demo01-basic-scene/component"),
     { ssr: false }

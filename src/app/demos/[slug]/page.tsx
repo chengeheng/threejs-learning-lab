@@ -4,7 +4,7 @@ import DemoSidebar from '@/components/demo/DemoSidebar'
 import DemoMarkdown from '@/components/notes/DemoMarkdown'
 import { getDemoNotes } from '@/lib/demo-content'
 import { getDemoBySlug } from '@/lib/demos'
-import { SidebarInset, SidebarProvider } from '@/components/ui/sidebar'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/components/ui/sidebar'
 
 export default async function DemoPage({
   params,
@@ -25,7 +25,10 @@ export default async function DemoPage({
     <SidebarProvider>
       <DemoSidebar currentSlug={slug} />
       <SidebarInset>
-        <main className="px-6 py-8">
+        <div className="flex items-center gap-2 border-b px-4 py-2 md:hidden">
+          <SidebarTrigger />
+        </div>
+        <div className="px-6 py-8">
           <header className="mb-6">
             <h1 className="text-3xl font-bold tracking-tight mb-2">
               {demo.title}
@@ -42,7 +45,7 @@ export default async function DemoPage({
           <section className="border-t pt-6">
             <DemoMarkdown content={notes} />
           </section>
-        </main>
+        </div>
       </SidebarInset>
     </SidebarProvider>
   )
