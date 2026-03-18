@@ -6,7 +6,7 @@ import { Button } from '@/components/ui/button'
 import { useEffect, useState } from 'react'
 
 export function ThemeToggle() {
-  const { theme, setTheme } = useTheme()
+  const { resolvedTheme, setTheme } = useTheme()
   const [mounted, setMounted] = useState(false)
 
   useEffect(() => {
@@ -22,9 +22,9 @@ export function ThemeToggle() {
       variant="ghost"
       size="icon"
       className="h-8 w-8"
-      onClick={() => setTheme(theme === 'dark' ? 'light' : 'dark')}
+      onClick={() => setTheme(resolvedTheme === 'dark' ? 'light' : 'dark')}
     >
-      {theme === 'dark' ? (
+      {resolvedTheme === 'dark' ? (
         <Sun className="h-4 w-4" />
       ) : (
         <Moon className="h-4 w-4" />
