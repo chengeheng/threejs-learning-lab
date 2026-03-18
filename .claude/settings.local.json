@@ -1,0 +1,23 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(pnpm dlx:*)",
+      "Bash(printf '\\\\n\\\\n\\\\n')",
+      "Bash(expect:*)",
+      "Bash(curl -s https://ui.shadcn.com/schema.json)",
+      "Bash(pnpm add:*)",
+      "Bash(pnpm exec:*)",
+      "Bash(timeout 30 pnpm dev)",
+      "Bash(git add:*)",
+      "Bash(node -e \"const t = require\\(''''./node_modules/next-themes/dist/index.js''''\\); console.log\\(Object.keys\\(t\\)\\)\")",
+      "Bash(git commit:*)",
+      "Bash(pnpm build:*)",
+      "Bash(npx tsc:*)",
+      "Skill(update-config)",
+      "Bash(ls ~/.claude/*.json)",
+      "Bash(ls ~/.claude/mcp*)",
+      "Bash(npx -y chrome-devtools-mcp@latest --version)",
+      "Bash(claude mcp:*)"
+    ]
+  }
+}
