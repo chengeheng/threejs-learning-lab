@@ -22,7 +22,7 @@ export default function DemoCanvasShell({ slug }: { slug: string }) {
   }
 
   return (
-    <div className="demo-canvas-shell">
+    <div className="border rounded-2xl overflow-hidden p-4 bg-background">
       <DemoComponent />
     </div>
   );
