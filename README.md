@@ -1,36 +1,100 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Three.js Learning Lab
 
-## Getting Started
+基于 Next.js 构建的 Three.js 交互式学习平台，通过可运行的 Demo + 配套 Markdown 笔记，帮助开发者系统学习 Three.js 3D 渲染技术。
 
-First, run the development server:
+## 技术栈
+
+| 类别 | 技术 |
+|------|------|
+| 框架 | Next.js 16（App Router） |
+| 语言 | TypeScript 5（strict 模式） |
+| 3D 渲染 | Three.js 0.183 |
+| 样式 | Tailwind CSS 4 |
+| 包管理 | pnpm |
+
+## 快速开始
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
+pnpm install
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+打开 [http://localhost:3000](http://localhost:3000) 查看效果。
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 已有 Demo
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+| Demo | 主题 | 知识点 |
+|------|------|--------|
+| Demo01 | Basic Scene | Scene、PerspectiveCamera、WebGLRenderer、Mesh、动画循环 |
+| Demo02 | Orbit Controls | OrbitControls、阻尼效果、极角限制、响应式 Canvas |
 
-## Learn More
+## 添加新 Demo
 
-To learn more about Next.js, take a look at the following resources:
+按以下步骤添加新 Demo：
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+**1. 创建目录和文件**
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```
+src/demos/demo{NN}-{kebab-case-name}/
+├── component.tsx   # Three.js 实现（客户端组件）
+├── meta.ts         # Demo 元数据
+└── notes.md        # 配套学习笔记
+```
 
-## Deploy on Vercel
+**2. 注册到 `src/lib/demos.ts`**
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```ts
+import demo03Meta from '@/demos/demo03-lighting/meta'
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+export const demos: DemoMeta[] = [
+  // ...
+  demo03Meta,
+]
+```
+
+**3. 注册到 `src/components/demo/DemoCanvasShell.tsx`**
+
+```ts
+const demoComponents: Record<string, ComponentType> = {
+  // ...
+  'demo03-lighting': dynamic(() => import('@/demos/demo03-lighting/component'), { ssr: false }),
+}
+```
+
+详细规范参见 [`.claude/CLAUDE.md`](.claude/CLAUDE.md)。
+
+## 目录结构
+
+```
+src/
+├── app/                      # Next.js 路由层
+│   ├── page.tsx              # 首页（Demo 卡片列表）
+│   └── demos/[slug]/         # Demo 详情页（动态路由）
+├── components/
+│   ├── demo/
+│   │   ├── DemoCanvasShell.tsx   # 动态加载 Demo 组件
+│   │   └── DemoSidebar.tsx       # Demo 导航侧边栏
+│   └── notes/
+│       └── DemoMarkdown.tsx      # Markdown 渲染器
+├── demos/                    # Demo 实现模块
+│   ├── demo01-basic-scene/
+│   └── demo02-orbit-controls/
+└── lib/
+    ├── demos.ts              # Demo 注册中心
+    └── demo-content.ts       # notes.md 加载器
+```
+
+## 架构说明
+
+- **服务端组件**：页面路由、Demo 列表、Markdown 内容加载（SEO 友好）
+- **客户端组件**：Three.js Canvas、交互控制（依赖浏览器 API）
+- **动态导入**：Demo 组件通过 `dynamic(() => import(...), { ssr: false })` 懒加载，避免 SSR 报错
+
+## 扩展方向
+
+- Lighting — 灯光与阴影
+- Textures — 纹理贴图
+- Shader — 自定义着色器 / GLSL
+- Physics — 物理引擎（Cannon.js）
+- Animation — 骨骼动画 / GLTF 模型加载
+- Post-processing — 后期处理效果
