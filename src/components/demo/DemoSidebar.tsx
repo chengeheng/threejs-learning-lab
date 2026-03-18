@@ -1,32 +1,38 @@
-import Link from "next/link";
-import { demos } from "@/lib/demos";
+import Link from 'next/link'
+import { demos } from '@/lib/demos'
+import {
+  Sidebar,
+  SidebarContent,
+  SidebarGroup,
+  SidebarGroupLabel,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
+} from '@/components/ui/sidebar'
 
 export default function DemoSidebar({ currentSlug }: { currentSlug: string }) {
   return (
-    <aside className="demo-sidebar">
-      <div className="demo-sidebar-inner">
-        <h2 className="demo-sidebar-title">Demos</h2>
-
-        <nav>
-          <ul className="demo-sidebar-list">
-            {demos.map((demo) => {
-              const isActive = demo.slug === currentSlug;
-
-              return (
-                <li key={demo.slug}>
-                  <Link
-                    href={`/demos/${demo.slug}`}
-                    className={isActive ? "demo-link active" : "demo-link"}
-                  >
-                    <span className="demo-link-title">{demo.title}</span>
-                    <span className="demo-link-desc">{demo.description}</span>
+    <Sidebar collapsible="offcanvas">
+      <SidebarContent>
+        <SidebarGroup>
+          <SidebarGroupLabel>Demos</SidebarGroupLabel>
+          <SidebarMenu>
+            {demos.map((demo) => (
+              <SidebarMenuItem key={demo.slug}>
+                <SidebarMenuButton
+                  asChild
+                  isActive={demo.slug === currentSlug}
+                  tooltip={demo.title}
+                >
+                  <Link href={`/demos/${demo.slug}`}>
+                    <span className="font-medium">{demo.title}</span>
                   </Link>
-                </li>
-              );
-            })}
-          </ul>
-        </nav>
-      </div>
-    </aside>
-  );
+                </SidebarMenuButton>
+              </SidebarMenuItem>
+            ))}
+          </SidebarMenu>
+        </SidebarGroup>
+      </SidebarContent>
+    </Sidebar>
+  )
 }
