@@ -12,7 +12,7 @@ import {
 
 export default function DemoSidebar({ currentSlug }: { currentSlug: string }) {
   return (
-    <Sidebar collapsible="offcanvas">
+    <Sidebar collapsible="offcanvas" style={{ top: '3.5rem', height: 'calc(100svh - 3.5rem)' }}>
       <SidebarContent>
         <SidebarGroup>
           <SidebarGroupLabel>Demos</SidebarGroupLabel>
