@@ -12,6 +12,10 @@ const demoMap: Record<string, ComponentType> = {
     () => import("@/demos/demo02-orbit-controls/component"),
     { ssr: false }
   ),
+  "demo03-light-material": dynamic(
+    () => import("@/demos/demo03-light-material/component"),
+    { ssr: false }
+  ),
 };
 
 export default function DemoCanvasShell({ slug }: { slug: string }) {
